@@ -8,149 +8,165 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { background: #0A0A0A; font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", system-ui, sans-serif; color: #fff; overflow-x: hidden; }
   a { text-decoration: none; color: inherit; }
-
-  .section { position: relative; padding: 56px 32px 48px; overflow: hidden; min-height: 600px; }
+ 
+  .section { position: relative; padding: 56px 32px 48px; overflow: hidden; min-height: 640px; }
   .accent-1 { position: absolute; top: -50px; right: -50px; width: 320px; height: 4px; background: #C8102E; transform: rotate(-25deg); transform-origin: right center; opacity: 0.6; will-change: transform; }
   .accent-2 { position: absolute; bottom: 80px; left: -50px; width: 220px; height: 2px; background: #C8102E; transform: rotate(15deg); opacity: 0.4; will-change: transform; }
-
+ 
   .header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 28px; }
   .eyebrow { font-size: 11px; color: #C8102E; letter-spacing: 3px; margin-bottom: 8px; font-weight: 500; }
   h2 { font-size: 32px; font-weight: 700; text-transform: uppercase; letter-spacing: -0.5px; }
   h2 .red { color: #C8102E; }
   .header-meta { font-size: 10px; color: #5A5A5A; letter-spacing: 2px; }
-
+ 
   .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-
-  .tile { display: block; position: relative; padding: 26px 22px; background: #141414; border: 1px solid #1F1F1F; min-height: 170px; overflow: hidden; transition: background 0.2s, border-color 0.2s; cursor: pointer; }
+  .featured { grid-column: span 3; min-height: 100px !important; }
+ 
+  .tile { display: block; position: relative; padding: 22px 20px; background: #141414; border: 1px solid #1F1F1F; min-height: 180px; overflow: hidden; transition: background 0.2s, border-color 0.2s; cursor: pointer; }
   .tile:hover { background: #1A1A1A; border-color: #C8102E; }
   .tile-accent { position: absolute; top: 0; left: 0; width: 0; height: 3px; background: #C8102E; transition: width 0.3s; }
   .tile:hover .tile-accent { width: 100%; }
-  .tile-num { position: absolute; top: 18px; right: 18px; font-size: 10px; color: #3A3A3A; letter-spacing: 2px; font-weight: 700; }
-  .tile-icon { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: rgba(200,16,46,0.1); border: 1px solid rgba(200,16,46,0.3); border-radius: 2px; color: #C8102E; font-size: 18px; }
-  .tile-title { font-size: 16px; font-weight: 700; margin-top: 18px; letter-spacing: 1px; text-transform: uppercase; }
-  .tile-desc { font-size: 11px; color: #8A8A8A; margin-top: 4px; line-height: 1.5; }
-  .tile-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 20px; padding-top: 14px; border-top: 1px solid #1F1F1F; }
+  .tile-num { position: absolute; top: 16px; right: 18px; font-size: 10px; color: #3A3A3A; letter-spacing: 2px; font-weight: 700; }
+  .tile-icon { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(200,16,46,0.1); border: 1px solid rgba(200,16,46,0.3); border-radius: 2px; color: #C8102E; font-size: 18px; font-weight: 700; }
+  .tile-title { font-size: 17px; font-weight: 700; margin-top: 18px; letter-spacing: 1px; text-transform: uppercase; line-height: 1.15; }
+  .tile-desc { font-size: 11px; color: #8A8A8A; margin-top: 6px; line-height: 1.5; min-height: 32px; }
+  .tile-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; padding-top: 12px; border-top: 1px solid #1F1F1F; }
   .tile-pages { font-size: 10px; color: #5A5A5A; letter-spacing: 1.5px; }
   .tile-arrow { color: #C8102E; font-size: 16px; }
-
-  .reserves { margin-top: 18px; display: flex; align-items: center; gap: 14px; padding: 12px 0; flex-wrap: wrap; }
-  .reserves-label { font-size: 10px; color: #5A5A5A; letter-spacing: 2px; font-weight: 500; }
-  .reserves a { font-size: 12px; color: #B5B5B5; }
-  .reserves a:hover { color: #fff; }
-  .reserves a.more { color: #C8102E; letter-spacing: 1px; }
-  .sep { color: #2A2A2A; }
-
+ 
+  /* featured tile inline layout */
+  .featured-inner { display: flex; align-items: center; gap: 22px; }
+  .featured .tile-title { margin-top: 0; }
+  .featured-text { flex: 1; }
+  .featured-foot { display: flex; align-items: center; gap: 14px; padding-left: 22px; border-left: 1px solid #1F1F1F; }
+ 
   @media (max-width: 720px) {
     .grid { grid-template-columns: 1fr; }
+    .featured { grid-column: span 1; }
+    .featured-inner { flex-direction: column; align-items: flex-start; gap: 14px; }
+    .featured-foot { padding-left: 0; padding-top: 14px; border-left: 0; border-top: 1px solid #1F1F1F; width: 100%; justify-content: space-between; }
     h2 { font-size: 24px; }
   }
 </style>
 </head>
 <body>
-
+ 
 <section class="section">
   <div class="accent-1"></div>
   <div class="accent-2"></div>
-
+ 
   <div class="header">
     <div>
       <div class="eyebrow">02 · DEPARTMENTS</div>
       <h2>Choose your <span class="red">squad</span></h2>
     </div>
-    <div class="header-meta">6 OF 6 ACTIVE</div>
+    <div class="header-meta">7 OF 7 ACTIVE</div>
   </div>
-
+ 
   <div class="grid">
-    <a href="#" class="tile">
+ 
+    <!-- РЯД 1 -->
+    <a href="#" target="_top" class="tile">
       <div class="tile-accent"></div>
       <div class="tile-num">01</div>
-      <div class="tile-icon">&lt;/&gt;</div>
-      <div class="tile-title">Engineering</div>
-      <div class="tile-desc">Код, архитектура, ревью</div>
+      <div class="tile-icon">▣</div>
+      <div class="tile-title">Production</div>
+      <div class="tile-desc">Game design, art, dev, QA, localization</div>
       <div class="tile-foot">
-        <span class="tile-pages">128 PAGES</span>
+        <span class="tile-pages">— PAGES</span>
         <span class="tile-arrow">→</span>
       </div>
     </a>
-
-    <a href="#" class="tile">
+ 
+    <a href="#" target="_top" class="tile">
       <div class="tile-accent"></div>
       <div class="tile-num">02</div>
-      <div class="tile-icon">◆</div>
-      <div class="tile-title">Design</div>
-      <div class="tile-desc">Гайдлайны, макеты, арт</div>
+      <div class="tile-icon">&lt;/&gt;</div>
+      <div class="tile-title">Technology</div>
+      <div class="tile-desc">Engineering, infrastructure, R&amp;D</div>
       <div class="tile-foot">
-        <span class="tile-pages">86 PAGES</span>
+        <span class="tile-pages">— PAGES</span>
         <span class="tile-arrow">→</span>
       </div>
     </a>
-
-    <a href="#" class="tile">
+ 
+    <a href="#" target="_top" class="tile">
       <div class="tile-accent"></div>
       <div class="tile-num">03</div>
       <div class="tile-icon">⊙</div>
-      <div class="tile-title">Product</div>
-      <div class="tile-desc">UFL roadmap, research</div>
+      <div class="tile-title">Publishing</div>
+      <div class="tile-desc">LiveOps, community, content, support, BI</div>
       <div class="tile-foot">
-        <span class="tile-pages">94 PAGES</span>
+        <span class="tile-pages">— PAGES</span>
         <span class="tile-arrow">→</span>
       </div>
     </a>
-
-    <a href="#" class="tile">
+ 
+    <!-- РЯД 2 -->
+    <a href="#" target="_top" class="tile">
       <div class="tile-accent"></div>
       <div class="tile-num">04</div>
-      <div class="tile-icon">◉</div>
-      <div class="tile-title">People &amp; HR</div>
-      <div class="tile-desc">Льготы, отпуска, найм</div>
-      <div class="tile-foot">
-        <span class="tile-pages">152 PAGES</span>
-        <span class="tile-arrow">→</span>
-      </div>
-    </a>
-
-    <a href="#" class="tile">
-      <div class="tile-accent"></div>
-      <div class="tile-num">05</div>
       <div class="tile-icon">▲</div>
       <div class="tile-title">Marketing</div>
-      <div class="tile-desc">Бренд UFL, кампании</div>
+      <div class="tile-desc">Brand, user acquisition, PR &amp; influencer</div>
       <div class="tile-foot">
-        <span class="tile-pages">71 PAGES</span>
+        <span class="tile-pages">— PAGES</span>
         <span class="tile-arrow">→</span>
       </div>
     </a>
-
-    <a href="#" class="tile">
+ 
+    <a href="#" target="_top" class="tile">
+      <div class="tile-accent"></div>
+      <div class="tile-num">05</div>
+      <div class="tile-icon">$</div>
+      <div class="tile-title">Finance</div>
+      <div class="tile-desc">Budget, treasury, P&amp;L, audit, KYC</div>
+      <div class="tile-foot">
+        <span class="tile-pages">— PAGES</span>
+        <span class="tile-arrow">→</span>
+      </div>
+    </a>
+ 
+    <a href="#" target="_top" class="tile">
       <div class="tile-accent"></div>
       <div class="tile-num">06</div>
-      <div class="tile-icon">⬢</div>
-      <div class="tile-title">Operations</div>
-      <div class="tile-desc">Процессы, политики</div>
+      <div class="tile-icon">⬡</div>
+      <div class="tile-title">Partnerships</div>
+      <div class="tile-desc">B2B relations, deals, integrations</div>
       <div class="tile-foot">
-        <span class="tile-pages">63 PAGES</span>
+        <span class="tile-pages">— PAGES</span>
         <span class="tile-arrow">→</span>
       </div>
     </a>
-  </div>
-
-  <div class="reserves">
-    <span class="reserves-label">RESERVES</span>
-    <a href="#">QA</a><span class="sep">/</span>
-    <a href="#">DevOps</a><span class="sep">/</span>
-    <a href="#">Legal</a><span class="sep">/</span>
-    <a href="#">Finance</a><span class="sep">/</span>
-    <a href="#" class="more">+12 MORE</a>
+ 
+    <!-- РЯД 3 — CORPORATE на всю ширину -->
+    <a href="#" target="_top" class="tile featured">
+      <div class="tile-accent"></div>
+      <div class="tile-num">07</div>
+      <div class="featured-inner">
+        <div class="tile-icon">⬢</div>
+        <div class="featured-text">
+          <div class="tile-title">Corporate</div>
+          <div class="tile-desc" style="min-height: 0; margin-top: 4px;">HR · IT · Country Operations · Business Operations · Outsource · Legal</div>
+        </div>
+        <div class="featured-foot">
+          <span class="tile-pages">— PAGES</span>
+          <span class="tile-arrow">→</span>
+        </div>
+      </div>
+    </a>
+ 
   </div>
 </section>
-
+ 
 <script>
 (function() {
-  const layers = document.querySelectorAll('.accent-1, .accent-2');
+  const accent1 = document.querySelector('.accent-1');
+  const accent2 = document.querySelector('.accent-2');
   window.addEventListener('scroll', function() {
     const y = window.scrollY || window.pageYOffset;
-    layers[0].style.transform = 'rotate(-25deg) translateX(' + (-y * 0.2) + 'px)';
-    layers[1].style.transform = 'rotate(15deg) translateX(' + (y * 0.3) + 'px)';
+    accent1.style.transform = 'rotate(-25deg) translateX(' + (-y * 0.2) + 'px)';
+    accent2.style.transform = 'rotate(15deg) translateX(' + (y * 0.3) + 'px)';
   }, { passive: true });
 })();
 </script>
