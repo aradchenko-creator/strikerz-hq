@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,186 +7,234 @@
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { background: #000; font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", system-ui, sans-serif; color: #fff; overflow-x: hidden; }
-
+ 
   .section { position: relative; padding: 56px 32px 56px; overflow: hidden; min-height: 460px; }
-  .glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 800px; height: 600px; background: radial-gradient(ellipse, #6B0716 0%, transparent 60%); opacity: 0.5; filter: blur(60px); z-index: 1; }
-
+  .glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 900px; height: 600px; background: radial-gradient(ellipse, #6B0716 0%, transparent 60%); opacity: 0.4; filter: blur(60px); z-index: 1; pointer-events: none; }
+ 
   .header { position: relative; z-index: 2; display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 28px; }
   .eyebrow { font-size: 11px; color: #C8102E; letter-spacing: 3px; margin-bottom: 8px; font-weight: 500; }
   h2 { font-size: 32px; font-weight: 700; text-transform: uppercase; letter-spacing: -0.5px; }
   h2 .red { color: #C8102E; }
   .hint { font-size: 10px; color: #5A5A5A; letter-spacing: 2px; }
-
-  .grid { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-
-  .card { perspective: 800px; height: 300px; }
+ 
+  .grid { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; }
+ 
+  .card { perspective: 1000px; height: 300px; }
   .inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; }
   .card:hover .inner { transform: rotateY(180deg); }
-  .face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; padding: 16px; display: flex; flex-direction: column; }
+  .face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; display: flex; flex-direction: column; overflow: hidden; }
   .front { background: linear-gradient(180deg, #1A1A1A 0%, #0A0A0A 100%); border: 1px solid #2A2A2A; }
-  .back { transform: rotateY(180deg); background: linear-gradient(180deg, #1F0508 0%, #0A0A0A 100%); border: 1px solid #C8102E; justify-content: center; gap: 9px; }
-
-  .top { display: flex; justify-content: space-between; align-items: flex-start; }
-  .rating { font-size: 32px; font-weight: 700; line-height: 1; }
-  .role { font-size: 10px; color: #C8102E; font-weight: 700; letter-spacing: 2px; margin-top: 4px; }
-  .country { font-size: 9px; color: #5A5A5A; letter-spacing: 1.5px; }
-  .avatar-wrap { flex: 1; display: flex; align-items: center; justify-content: center; margin: 10px 0; position: relative; }
-  .avatar-wrap::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle, rgba(200,16,46,0.25), transparent 60%); }
-  .avatar { position: relative; width: 76px; height: 76px; border-radius: 50%; background: #2A2A2A; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 24px; letter-spacing: 1px; border: 2px solid #C8102E; }
-  .avatar.gold { background: #C8102E; border-color: #C8102E; }
-  .footer-front { text-align: center; padding-top: 12px; border-top: 1px solid #2A2A2A; }
-  .name { font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
-  .position { font-size: 9px; color: #6A6A6A; margin-top: 4px; letter-spacing: 2px; }
-
-  .stat-row { display: flex; justify-content: space-between; font-size: 12px; color: #B5B5B5; letter-spacing: 1px; }
-  .stat-row span:last-child { color: #fff; font-weight: 700; }
-  .stat-row.signature span { color: #C8102E !important; }
-
-  .full-roster { margin-top: 22px; padding: 12px 22px; background: transparent; color: #fff; border: 1px solid #3A3A3A; font-size: 12px; cursor: pointer; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-family: inherit; transition: border-color 0.2s; }
-  .full-roster:hover { border-color: #C8102E; }
-  .full-roster .arrow { color: #C8102E; }
-
+  .back { transform: rotateY(180deg); background: linear-gradient(180deg, #1F0508 0%, #0A0A0A 100%); border: 1px solid #C8102E; padding: 13px; justify-content: center; gap: 7px; }
+ 
+  .photo-wrap { position: relative; flex: 1; overflow: hidden; background: #000; }
+  .photo-wrap img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) contrast(1.05); transition: filter 0.3s; }
+  .photo-wrap::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, transparent 50%, rgba(200,16,46,0.25) 100%), linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.7) 100%); pointer-events: none; }
+  .rim-light { position: absolute; top: 0; right: 0; bottom: 0; width: 3px; background: linear-gradient(180deg, transparent, #C8102E 50%, transparent); opacity: 0.7; }
+  .role-badge { position: absolute; top: 10px; left: 10px; padding: 3px 8px; background: rgba(0,0,0,0.75); border-left: 2px solid #C8102E; font-size: 9px; font-weight: 700; letter-spacing: 2px; z-index: 3; }
+ 
+  /* Заглушка с инициалами (когда фото нет) */
+  .photo-wrap.placeholder { display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #2A2A2A 0%, #1A0507 50%, #3D0712 100%); }
+  .photo-wrap.placeholder .initials { font-size: 56px; font-weight: 700; color: #C8102E; letter-spacing: 2px; text-shadow: 0 0 20px rgba(200,16,46,0.4); }
+ 
+  .info { padding: 11px 13px; background: #000; position: relative; z-index: 2; }
+  .info::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: #C8102E; }
+  .name { font-size: 12px; font-weight: 700; letter-spacing: 0.5px; line-height: 1.2; text-transform: uppercase; }
+  .position { font-size: 9px; color: #8A8A8A; margin-top: 4px; letter-spacing: 1.3px; font-weight: 500; }
+ 
+  .back-title { font-size: 10px; font-weight: 700; color: #C8102E; letter-spacing: 2px; margin-bottom: 4px; }
+  .back-name { font-size: 13px; font-weight: 700; margin-bottom: 3px; letter-spacing: 0.5px; }
+  .back-role { font-size: 9px; color: #B5B5B5; letter-spacing: 1.5px; margin-bottom: 9px; padding-bottom: 8px; border-bottom: 1px solid #2A2A2A; }
+  .back-bio { font-size: 10px; line-height: 1.5; color: #D5D5D5; }
+  .back-bio strong { color: #fff; font-weight: 700; }
+ 
+  @media (max-width: 1100px) {
+    .grid { grid-template-columns: repeat(4, 1fr); }
+  }
   @media (max-width: 720px) {
     .grid { grid-template-columns: repeat(2, 1fr); }
-    h2 { font-size: 24px; }
+    h2 { font-size: 22px; }
   }
 </style>
 </head>
 <body>
-
+ 
 <section class="section">
   <div class="glow"></div>
-
+ 
   <div class="header">
     <div>
-      <div class="eyebrow">03 · STARTING XI</div>
-      <h2>The <span class="red">leadership</span> roster</h2>
+      <div class="eyebrow">03 · LEADERSHIP</div>
+      <h2>C-Level <span class="red">Squad</span></h2>
     </div>
     <div class="hint">HOVER TO FLIP</div>
   </div>
-
+ 
   <div class="grid">
-
+ 
+    <!-- 1. CEO -->
     <div class="card">
       <div class="inner">
         <div class="face front">
-          <div class="top">
-            <div>
-              <div class="rating">94</div>
-              <div class="role">CEO</div>
-            </div>
-            <div class="country">UA</div>
+          <div class="photo-wrap">
+            <img src="avatars/nashilov.jpg" alt="Eugene Nashilov">
+            <div class="rim-light"></div>
+            <div class="role-badge">CEO</div>
           </div>
-          <div class="avatar-wrap">
-            <div class="avatar gold">АС</div>
-          </div>
-          <div class="footer-front">
-            <div class="name">Стрилерик</div>
-            <div class="position">FOUNDER</div>
+          <div class="info">
+            <div class="name">E. Nashilov</div>
+            <div class="position">CHIEF EXECUTIVE OFFICER</div>
           </div>
         </div>
         <div class="face back">
-          <div class="stat-row"><span>VIS</span><span>96</span></div>
-          <div class="stat-row"><span>LDR</span><span>94</span></div>
-          <div class="stat-row"><span>STR</span><span>91</span></div>
-          <div class="stat-row"><span>NEG</span><span>93</span></div>
-          <div class="stat-row"><span>OPS</span><span>88</span></div>
-          <div class="stat-row signature"><span>HYP</span><span>95</span></div>
+          <div class="back-title">CEO</div>
+          <div class="back-name">Eugene Nashilov</div>
+          <div class="back-role">PRODUCT VISION · LEADERSHIP</div>
+          <div class="back-bio"><strong>15+ years</strong> in executive game development with a focus on production and game design. Leads UFL — a AAA football game — shaping gameplay vision from concept to launch.</div>
         </div>
       </div>
     </div>
-
+ 
+    <!-- 2. CTO -->
     <div class="card">
       <div class="inner">
         <div class="face front">
-          <div class="top">
-            <div>
-              <div class="rating">91</div>
-              <div class="role">CTO</div>
-            </div>
-            <div class="country">PL</div>
+          <div class="photo-wrap">
+            <img src="avatars/chernega.jpg" alt="Max Chernega">
+            <div class="rim-light"></div>
+            <div class="role-badge">CTO</div>
           </div>
-          <div class="avatar-wrap">
-            <div class="avatar">МК</div>
-          </div>
-          <div class="footer-front">
-            <div class="name">Костюк М.</div>
-            <div class="position">TECH LEAD</div>
+          <div class="info">
+            <div class="name">M. Chernega</div>
+            <div class="position">CHIEF TECHNOLOGY OFFICER</div>
           </div>
         </div>
         <div class="face back">
-          <div class="stat-row"><span>SYS</span><span>95</span></div>
-          <div class="stat-row"><span>CDE</span><span>93</span></div>
-          <div class="stat-row"><span>ARC</span><span>94</span></div>
-          <div class="stat-row"><span>SPD</span><span>88</span></div>
-          <div class="stat-row"><span>SEC</span><span>90</span></div>
-          <div class="stat-row signature"><span>MNT</span><span>86</span></div>
+          <div class="back-title">CTO</div>
+          <div class="back-name">Max Chernega</div>
+          <div class="back-role">ENGINEERING · ARCHITECTURE</div>
+          <div class="back-bio"><strong>10+ years</strong> in senior engineering roles. Architects game systems and scales engineering teams for AAA development pipelines.</div>
         </div>
       </div>
     </div>
-
+ 
+    <!-- 3. CPO -->
     <div class="card">
       <div class="inner">
         <div class="face front">
-          <div class="top">
-            <div>
-              <div class="rating">89</div>
-              <div class="role">CPO</div>
-            </div>
-            <div class="country">CY</div>
+          <div class="photo-wrap">
+            <img src="avatars/makaruk.jpg" alt="Mikhail Makaruk">
+            <div class="rim-light"></div>
+            <div class="role-badge">CPO</div>
           </div>
-          <div class="avatar-wrap">
-            <div class="avatar">ЕЛ</div>
-          </div>
-          <div class="footer-front">
-            <div class="name">Лазарева Е.</div>
-            <div class="position">PRODUCT</div>
+          <div class="info">
+            <div class="name">M. Makaruk</div>
+            <div class="position">CHIEF PRODUCTION OFFICER</div>
           </div>
         </div>
         <div class="face back">
-          <div class="stat-row"><span>STR</span><span>94</span></div>
-          <div class="stat-row"><span>UX</span><span>90</span></div>
-          <div class="stat-row"><span>RES</span><span>88</span></div>
-          <div class="stat-row"><span>DAT</span><span>87</span></div>
-          <div class="stat-row"><span>VIS</span><span>91</span></div>
-          <div class="stat-row signature"><span>EXE</span><span>85</span></div>
+          <div class="back-title">CPO</div>
+          <div class="back-name">Mikhail Makaruk</div>
+          <div class="back-role">PRODUCTION · LIVE OPS</div>
+          <div class="back-bio"><strong>10+ years</strong> in game development across major industry projects. Specializes in production pipelines, live operations, and aligning technical, creative, and business teams.</div>
         </div>
       </div>
     </div>
-
+ 
+    <!-- 4. COO -->
     <div class="card">
       <div class="inner">
         <div class="face front">
-          <div class="top">
-            <div>
-              <div class="rating">87</div>
-              <div class="role">CHRO</div>
-            </div>
-            <div class="country">KR</div>
+          <div class="photo-wrap">
+            <img src="avatars/radchenko.jpg" alt="Alexandra Radchenko">
+            <div class="rim-light"></div>
+            <div class="role-badge">COO</div>
           </div>
-          <div class="avatar-wrap">
-            <div class="avatar">ДК</div>
-          </div>
-          <div class="footer-front">
-            <div class="name">Ким Д.</div>
-            <div class="position">PEOPLE</div>
+          <div class="info">
+            <div class="name">A. Radchenko</div>
+            <div class="position">CHIEF OPERATIONS OFFICER</div>
           </div>
         </div>
         <div class="face back">
-          <div class="stat-row"><span>EMP</span><span>93</span></div>
-          <div class="stat-row"><span>HIR</span><span>90</span></div>
-          <div class="stat-row"><span>CUL</span><span>92</span></div>
-          <div class="stat-row"><span>NEG</span><span>85</span></div>
-          <div class="stat-row"><span>OPS</span><span>82</span></div>
-          <div class="stat-row signature"><span>RET</span><span>88</span></div>
+          <div class="back-title">COO</div>
+          <div class="back-name">Alexandra Radchenko</div>
+          <div class="back-role">OPERATIONS · ANALYTICS</div>
+          <div class="back-bio"><strong>10+ years</strong> in business consulting and gamedev. <strong>5+ years</strong> in worldwide AAA console/PC development. Focus on operations management, business performance, and process development. Drove ISO certification.</div>
         </div>
       </div>
     </div>
-
+ 
+    <!-- 5. CFO -->
+    <div class="card">
+      <div class="inner">
+        <div class="face front">
+          <div class="photo-wrap">
+            <img src="avatars/kolmakov.jpg" alt="Maksim Kolmakov">
+            <div class="rim-light"></div>
+            <div class="role-badge">CFO</div>
+          </div>
+          <div class="info">
+            <div class="name">M. Kolmakov</div>
+            <div class="position">CHIEF FINANCIAL OFFICER</div>
+          </div>
+        </div>
+        <div class="face back">
+          <div class="back-title">CFO</div>
+          <div class="back-name">Maksim Kolmakov</div>
+          <div class="back-role">FINANCE · AUDIT</div>
+          <div class="back-bio"><strong>15+ years</strong> in finance, including senior managerial roles in <strong>Big Four</strong> auditing. <strong>4+ years</strong> in gamedev across mobile and console projects. Holds Master's degree in Finance and professional accountancy qualification.</div>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- 6. CMO -->
+    <div class="card">
+      <div class="inner">
+        <div class="face front">
+          <div class="photo-wrap placeholder">
+            <div class="initials">АХ</div>
+            <div class="rim-light"></div>
+            <div class="role-badge">CMO</div>
+          </div>
+          <div class="info">
+            <div class="name">A. Khakimova</div>
+            <div class="position">CHIEF MARKETING OFFICER</div>
+          </div>
+        </div>
+        <div class="face back">
+          <div class="back-title">CMO</div>
+          <div class="back-name">Alfiya Khakimova</div>
+          <div class="back-role">BRAND · MARKETING · UA</div>
+          <div class="back-bio">Leads marketing and brand strategy at Strikerz Inc. Drives UFL brand development, user acquisition, performance marketing, and community engagement across global markets.</div>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- 7. Head of Publishing -->
+    <div class="card">
+      <div class="inner">
+        <div class="face front">
+          <div class="photo-wrap">
+            <img src="avatars/bogomolskiy.jpg" alt="Alexander Bogomolskiy">
+            <div class="rim-light"></div>
+            <div class="role-badge">HoP</div>
+          </div>
+          <div class="info">
+            <div class="name">A. Bogomolskiy</div>
+            <div class="position">HEAD OF PUBLISHING</div>
+          </div>
+        </div>
+        <div class="face back">
+          <div class="back-title">HEAD OF PUBLISHING</div>
+          <div class="back-name">Alexander Bogomolskiy</div>
+          <div class="back-role">PUBLISHING · LIVE OPS</div>
+          <div class="back-bio"><strong>13+ years</strong> in operations and marketing. Background in F2P monetization, product management, and performance marketing across major gaming titles.</div>
+        </div>
+      </div>
+    </div>
+ 
   </div>
-
-  <button class="full-roster" onclick="window.parent.postMessage({type:'roster'},'*')">View full roster <span class="arrow">→</span></button>
-
+ 
 </section>
 </body>
 </html>
+ 
